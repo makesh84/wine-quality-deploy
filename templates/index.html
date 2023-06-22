@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine-Quality Analysis</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- Styling -->
+    <style>
+        body {
+            margin: 1% 25% 0 25%;
+            color: black;
+            background-color: #343d46;
+        }
+
+        h2 {
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 30px;
+            color: white;
+            text-decoration: underline;
+        }
+
+        .prediction_text {
+            margin-left: 5%;
+            text-align: center;
+            color: white;
+            font-size: larger;
+            text-transform: capitalize;
+            margin-top: 10px;
+        }
+
+        input[type=text]:focus {
+            background-color: cornsilk;
+        }
+
+        label {
+            color: black;
+            font-weight: 700;
+        }
+
+        .subbt {
+            font-size: 25px;
+            font-weight: 500;
+            margin-left: 35%;
+            border: 2px solid black;
+            border-radius: 20px;
+            width: 250px;
+            background-color: tomato;
+        }
+
+        .subbt:hover {
+            outline: none;
+            border-color: #9ecaed;
+            box-shadow: 0 0 10px #9ecaed;
+        }
+
+        .subbt:hover {
+            background-color: #FE6F5E;
+            color: black;
+            border: 2px solid black;
+        }
+
+        @media only screen and (max-width: 768px) {
+            body {
+                width: 100%;
+            }
+
+            .box_size {
+                display: flex;
+                flex-direction: column;
+                grid-template-columns: 1fr;
+            }
+
+            .subbt {
+                margin-left: 10%;
+            }
+
+            .subbt:hover {
+                outline: none;
+                border-color: #9ecaed;
+                box-shadow: 0 0 10px #9ecaed;
+                background-color: #FE6F5E;
+                color: black;
+                border: 2px solid black;
+            }
+
+            .prediction_text {
+                margin-right: 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- container -->
+    <div>
+        <form action="{{url_for('predict')}}" method="post">
+            <!-- Title of the form -->
+            <h2>Wine Quality Prediction</h2>
+            <div class="row g-3 mt-1 box_size">
+                <!-- fixedacidity input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="fixedacidity" name="fixedacidity"
+                            placeholder="fixedacidity" required="required" />
+                        <label for="fixedacidity">Fixed_Acidity</label>
+                    </div>
+                </div>
+                <!-- volatileacidity input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="volatileacidity" name="volatileacidity"
+                            placeholder="volatileacidity" required="required" />
+                        <label for="volatileacidity">Volatile_Acidity</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-1 box_size">
+                <!-- citricacid input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="citricacid" name="citricacid"
+                            placeholder="citricacid" required="required" />
+                        <label for="citricacid">Citric_Acid</label>
+                    </div>
+                </div>
+                <!-- residualsugar input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="residualsugar" name="residualsugar"
+                            placeholder="residualsugar" required="required" />
+                        <label for="residualsugar">Residual_Sugar</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-1 box_size">
+                <!-- chlorides input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="chlorides" name="chlorides" placeholder="chlorides"
+                            required="required" />
+                        <label for="chlorides">Chlorides</label>
+                    </div>
+                </div>
+                <!-- freesulfurdioxide input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="freesulfurdioxide" name="freesulfurdioxide"
+                            placeholder="freesulfurdioxide" required="required" />
+                        <label for="freesulfurdioxide">Free_Sulfur_DiOxide</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-1 box_size">
+                <!-- totalsulfurdioxide input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="totalsulfurdioxide" name="totalsulfurdioxide"
+                            placeholder="totalsulfurdioxide" required="required" />
+                        <label for="totalsulfurdioxide">Total_Sulfur_DiOxide</label>
+                    </div>
+                </div>
+                <!-- density input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="density" name="density" placeholder="density"
+                            required="required" />
+                        <label for="density">Density</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-1 box_size">
+                <!-- inputcrim input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="ph" name="ph" placeholder="ph"
+                            required="required" />
+                        <label for="ph">PH</label>
+                    </div>
+                </div>
+                <!-- sulphates input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="sulphates" name="sulphates" placeholder="sulphates"
+                            required="required" />
+                        <label for="sulphates">Sulphates</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-1 mb-3 box_size">
+                <!-- inputcrim input box -->
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="alcohol" name="alcohol" placeholder="alcohol"
+                            required="required" />
+                        <label for="alcohol">Alcohol</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit button -->
+            <div>
+                <button type="submit" class="btn btn-primary btn-block btn-large subbt">Let's predict</button>
+            </div>
+        </form>
+    </div>
+
+    <br>
+    <h3 class="prediction_text">{{ prediction_text }}<h3>
+
+</body>
+
+</html>
